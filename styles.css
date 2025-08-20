@@ -136,7 +136,7 @@ label, select, input {
     flex-direction: column;
     align-items: flex-start;
     text-align: left;
-    position: absolute;
+    position: fixed;
     top: 1.6rem;
     left: 0.5rem;
     z-index: 1;
@@ -323,7 +323,6 @@ h1 {
 
 
 
-/*mobile swipe container + static bc image */
 
 #s1, #s2, body, html {
     height: auto !important;
