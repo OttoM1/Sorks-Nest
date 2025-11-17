@@ -8,7 +8,7 @@ images.forEach(src => {
 
 
 document.addEventListener("DOMContentLoaded", () => {
-    const target = document.getElementById("headline1");
+    const target = document.getElementById("dataOne");
 
     const observerOptions = {
         root: null, 

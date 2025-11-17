@@ -1,4 +1,12 @@
 
+<!-- 
+git add .
+git commit -m
+git push main origin 
+-->
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,8 +54,8 @@ visibility: hidden;
             --max: 1200px;
 
 
-            --fade-ms: 800ms;
-    --step-h: 74svh;
+            --fade-ms: 400ms;
+    --step-h: 63svh;
         }
 
         /* Base */
@@ -164,10 +172,12 @@ html { scroll-behavior: auto; }
 }
 
 header {
-    width: 100vw;
+     width: 100vw;
     overflow-x: hidden;
     height: auto;
-    min-height: 8svh;
+    min-height: 10svh;
+
+    box-shadow: 0 2px 4px rgba(174, 186, 186, 0.304);
     /*
 
 background: linear-gradient(to right, rgba(77, 132, 164, 0.24), rgba(61, 112, 122, 0.24), rgba(142, 161, 174, 0.24), rgba(255,255,255, 0.24));
@@ -179,23 +189,24 @@ padding-left: 2vw;
 
 font-weight: bold;
 
--webkit-backdrop-filter: blur(5px);
-backdrop-filter: blur(5px);
+-webkit-backdrop-filter: blur(7px);
+backdrop-filter: blur(7px);
 
-font-size: 7.2svh;
-
-
-
+font-size: 6svh;
+background: rgba(255, 255, 255, 0);
+position: fixed;
+top: 1svh;
+left: 0;
 font-weight: 900;
-
+z-index: 1000;
 font-family: 'Impact', 'Anton', sans-serif; 
 }
 
 #dropDown {
-    position: absolute;
+    position: fixed;
   z-index: 1000;
-    top: 3.2svh;
-    right: 3.2vw;
+    top: 1.6svh;
+    right: 3vw;
     margin: 0;
     padding: 0;
     flex-direction: row;
@@ -282,10 +293,10 @@ pointer-events: all;
 
 <section class="steps">
   <section class="step" data-bg="mount.png">
-    <div id="dataOne">
+    <div id="dataOne" class="hiddenHeadline1">
       <h2 style="margin-top: -16svh;">Stork's Nest</h2>
       <br>
-<div id="headline1" class="hiddenHeadline1">Bring Your Ideas to Life <strong style="font-size: 1.88rem;">with AI-Powered
+<div id="headline1" >Bring Your Ideas to Life <strong style="font-size: 1.6rem;">with AI-Powered
     Front-End Tool-Box</strong></div>
     </div>
   </section>
@@ -293,8 +304,8 @@ pointer-events: all;
 
 
 <section class="step" data-bg="mount2.png" >
-  <div id="dataOne" >
-    <h2 style="margin-top: -16svh;" >Build Stunning Websites Without Writing a Single Line of Code
+  <div id="dataTwo" >
+    <h2 style="font-size: 1.6rem; margin-top: -16svh; margin-bottom: 4.8svh; font-size: 1.6rem;" >Build Stunning Websites Without Writing a Single Line of Code
    </h2> 
    <p>
     Stork’s Nest gives you the freedom to create beautiful, fully customizable galleries and websites in just a few
@@ -305,8 +316,8 @@ pointer-events: all;
 </section>
 
 <section class="step" data-bg="mount3.png">
-  <div id="dataOne">
-    <h2 style="margin-top: -16svh;">Simple, Flexible, Powerful</h2>
+  <div id="dataThree">
+    <h2 style="margin-top: -16svh; margin-bottom: 3.2svh; font-size: 1.6rem;">Simple, Flexible, Powerful</h2>
     <br>
     <p>Upload images or videos, pick your backgrounds, and apply smooth animations that bring your vision to life.<br><br>
     Add personalized text, edit layouts in real time, and preview your design instantly. With Stork’s Nest, building your
@@ -316,9 +327,25 @@ pointer-events: all;
 
 
 <section class="step" data-bg="mount5.png">
-  <div id="dataOne">
-    <h2 style="margin-top: -16svh;">Join Now</h2>
+  <div id="dataFour">
+    <h2 class="ind2" onclick="navigateTo('indexSIGN.html')" style="background: rgba(0, 183, 255, 0.08); 
+       -webkit-backdrop-filter: blur(4px);
+       backdrop-filter: blur(4px);
+       border-radius: 8px;
+       border: none;
+       margin-top: -16svh !important;
+       margin-bottom: 4svh !important;
+       font-size: 1.72rem;
+       padding: .63em .63em;
+       align-self: center;
+       text-align: center;
+       box-shadow: 0 2px 6px rgba(9, 10, 15, 0.63);
+       text-decoration: underline;
+       pointer-events: all;
+       color: white;
+       ">Join Now</h2>
     <br>
+
     <p>Perfect for small businesses, freelancers, and creatives who want stunning, functional sites without expensive
     developers.<br><br>
     Build, customize, and launch your digital space today with tools that put creativity first.
@@ -451,7 +478,16 @@ Build, customize, and launch your digital space today with tools that put creati
 
 -->
 
-
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const goBackBtn = document.querySelector(".ind2");
+    if (goBackBtn) {
+      goBackBtn.addEventListener("click", function () {
+        window.location.href = "indexSIGN.html";
+      });
+    }
+  });
+</script>
 
 <script>
   (() => {
@@ -499,8 +535,8 @@ Build, customize, and launch your digital space today with tools that put creati
       });
     }, {
       root: null,
-      threshold: 0.40,           // "mostly in view" 55%
-      rootMargin: '-10% 0% -35%' // bias toward the center of the viewport
+      threshold: 0.35,           // "mostly in view" 55%
+      rootMargin: '-10% 0% -25%' // bias toward the center of the viewport
     }) : null;
 
     if (io) {
