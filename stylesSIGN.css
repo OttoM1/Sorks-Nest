@@ -1,7 +1,7 @@
 body, html {
     margin: 0; 
     padding: 0;
-    height: 100%; 
+    height: 100%;
     font-family: Arial, sans-serif;
     width: 100vw;
 scroll-behavior: smooth;
@@ -9,6 +9,279 @@ scroll-behavior: smooth;
   
 
 }
+
+
+
+
+#s0 {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: auto;
+    min-height: 100%;
+    align-items: center;
+    text-align: center;
+    align-content: center;
+
+scroll-behavior: smooth;
+overflow-x: hidden;
+
+
+background-image: url(eyp.jpg);
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+
+
+
+    position: absolute;
+    z-index: 2000;
+
+    color: black;
+    padding-bottom: 32svh;
+}
+    
+
+
+header {
+    width: 100vw;
+    height: auto;
+    min-height: 7svh;
+background: linear-gradient(to right, rgba(103, 221, 230, 0.743), rgba(78, 167, 175, 0.188), rgba(162, 162, 162, 0.795));
+
+
+
+    text-align: left;
+padding-top: 3svh;
+padding-left: 2vw;
+
+font-size: 6svh;
+
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.56);
+
+-webkit-backdrop-filter: blur(3px);
+backdrop-filter: blur(3px);
+
+}
+
+
+#dropDown {
+    position: absolute;
+    z-index: 1;
+    top: 2svh;
+    right: 2vw;
+    margin: 0;
+    padding: 0;
+    flex-direction: row;
+    display: flex;
+    gap: 2vw;
+    font-size: 2rem;
+}
+
+.hidden1 {
+    opacity: 0;
+    transform: translateX(0);
+    transition: 2.4s all ease-in-out;
+}
+
+.visible1 {
+    opacity: 1;
+    transform: translateX(-20vw);
+}
+
+.hidden12 {
+    opacity: 0;
+    transform: translateX(26vw) translateY(30svh);
+    transition: 2.4s all ease-in-out;
+}
+
+.visible12 {
+    opacity: 1;
+    transform: translateX(26vw) translate(16svh);
+}
+
+
+ .hidden2 {
+    opacity: 0;
+    transform: translateX(0) translateY(0);
+    transition: 8s opacity, 2.2s transform ease-in-out;
+}
+
+ .visible2 {
+    opacity: 1;
+    transform: translateX(20vw) translateY(-16svh);
+}
+
+
+
+.hidden22 {
+    opacity: 0;
+    transform: translateX(-24vw) translateY(10svh);
+    transition: 2.4s all ease-in-out;
+}
+
+ .visible22 {
+    opacity: 1;
+    transform: translateX(-24vw) translateY(0);
+}
+
+
+
+.hidden3 {
+    opacity: 0;
+    scale: 0.63;
+    transform: translateY(6svh);
+    transition: 2.4s all ease-in-out;
+}
+
+ .visible3 {
+    opacity: 1;
+    scale: 1;
+    transform: translateY(0);
+
+}
+
+
+
+
+#s0Div1 {
+display: flex;
+flex-direction: column;
+align-items: center;
+text-align: center;
+
+width: 50%;
+min-height: 30svh;
+height: auto;
+background: rgba(29, 255, 217, 0.1);
+font-size: 1.4rem;
+position: relative;
+margin-top: 30svh;
+
+box-shadow: 0 0 10px rgba(26, 236, 255, 0.894);
+
+line-height: 1.88;
+
+-webkit-backdrop-filter: blur(4px);
+backdrop-filter: blur(4px);
+border-radius: 8px;
+    
+}
+
+#s0Div12 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    
+    width: 20%;
+    min-height: 24svh;
+    height: auto;
+    background: rgba(29, 131, 255, 0.1);
+    font-size: 1.1rem;
+    position: relative;
+    margin-top: 50svh;
+    
+    box-shadow: 0 0 10px rgba(26, 79, 255, 0.894);
+    
+    line-height: 1.8;
+    position: absolute;
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    border-radius: 6px;
+        
+    }
+
+#s0Div1 h2, #s0Div2 h2 {
+    margin-top: 3svh;
+    margin-bottom: 2svh;
+}
+
+#s0Div2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    line-height: 1.88;
+    border-radius: 8px;
+
+    width: 50%;
+
+    min-height: 30svh;
+    height: auto;
+        background: rgba(255, 76, 124, 0.1);
+    font-size: 1.2rem;
+    position: relative;
+    margin-top: 30svh;
+        
+    box-shadow: 0 0 10px rgba(255, 43, 96, 0.901);
+
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    }
+
+    #s0Div22 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        line-height: 1.88;
+        border-radius: 6px;
+    
+        width: 24%;
+    
+        min-height: 24svh;
+        height: auto;
+            background: rgba(255, 255, 255, 0.1);
+        font-size: 1.2rem;
+        position: absolute;
+        margin-top: 120svh;
+            
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.901);
+    
+        -webkit-backdrop-filter: blur(4px);
+        backdrop-filter: blur(4px);
+        }
+    
+
+
+#s0Div3 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    line-height: 1.88;
+
+    width: 32%;
+    height: 40svh;
+    background: rgba(0, 255, 17, 0.1);
+
+    box-shadow: 0 0 10px rgba(42, 251, 108, 0.63);
+
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    border-radius: 8px;
+    font-size: 1.2rem;
+    position: relative;
+    margin-top: 16svh;
+        
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #s2 {
@@ -81,9 +354,11 @@ text-shadow: 0 0 1.3px black;
      height: 580px;
      max-height: 62svh;
      padding: 0.8rem 0.32rem;
-     background: rgba(199, 255, 241, 0.1); 
+     background: radial-gradient(circle at center, #ffffff00 0%, #556d6d1b 50%, #1919191b 100%); 
      box-shadow: 0 3px 6px rgb(16, 15, 15);
     border-radius: 8px;
+
+
     -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
 z-index: 1000;
@@ -164,20 +439,20 @@ scale: 1.1;
 filter: brightness(1.1);
 transition: 0.2s all ease-in-out;
 }
-#creatorUsername, #creatorPassword, #newUsername {
+#creatorUsername, #creatorPassword, #newUsername, #creatorPassword2 {
     background: rgba(118, 239, 255, 0.1);
     -webkit-backdrop-filter: blur(1px);
     color: white;
     backdrop-filter: blur(1px);
 }
 
-#creatorPassword, #enterCreator, #creatorUsername, #newUsername, #createAccount {
+#creatorPassword, #creatorPassword2, #enterCreator, #creatorUsername, #newUsername, #createAccount {
 margin-bottom: 1.1rem;
    
    color: rgb(255, 255, 255);
 }
 
-#creatorPassword:hover, #enterCreator:hover, #creatorUsername:hover{
+#creatorPassword:hover, #enterCreator:hover, #creatorUsername:hover, #creatorPassword2:hover{
 scale: 1.048;
 transition: all 0.2s ease-in-out;
 }
@@ -243,9 +518,13 @@ display: flex;
 
 #s1 {
    z-index: 1000; width: 100vw;
+   display: flex;
     height: 100vh;
-    overflow-x: hidden; 
-    overflow-y: hidden;
+    overflow: hidden;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    align-self: center;
     /*
     background-image: url(fefee.jpg) !important;
     background-size: cover;
@@ -323,13 +602,7 @@ h1 {
 
 
 
-
-#s1, #s2, body, html {
-    height: auto !important;
-    min-height: 100%;
-    overflow-x: hidden !important;
-    overflow-y: auto !important;
-}
+/*mobile swipe container + static bc image */
 
 #s1 {
     margin-top: 12svh;
@@ -347,17 +620,18 @@ h1 {
 
 
 
-
-
-
-
-
-
-
-
 }
 
+
+
+
+
+
 @media screen and (min-width: 501px) {
+
+
+
+
     #radialgradient1
 ,   #radialgradient2 {
     width: 44vw;
@@ -389,12 +663,27 @@ h1 {
     visibility: hidden;
 }
 
+#controls button {
+  background: rgb(50, 54, 54) !important;
+  
+}
+#controls button:hover {
+  scale: 1.06;
+filter: brightness(1.1);
+transform: translateY(-2px);
+  transition: all 160ms ease-in-out;
+}
 
   #controls {
-    position: absolute; 
+    position: fixed; 
     top: 0.7rem;
     right: 0.7rem;
-    background-color: rgba(106, 162, 155, 0.24);
+    background-color: rgba(30, 31, 31, 0.8);
+    background: linear-gradient(120deg, #151515ba, #3e3f3fa9, #171717af);
+    /*
+        background-color: rgba(106, 162, 155, 0.24);
+
+    */
     border: none;
     box-shadow: 0 0 6px black;
     padding: 12px;
@@ -572,11 +861,20 @@ text-shadow: 0 0 1.3px black;
 
 
 
+#newUsername:hover, #createAccount:hover {
+    scale: 1.06;
+    transition: 0.16s all;
+
+}
 
 
 
+#showLogin:hover {
+    filter: brightness(1.1);
+text-shadow: 0 0 2px white;
 
-
+transition: 0.1s all;
+}
 
 
 
@@ -648,11 +946,10 @@ pointer-events: all;
 
   .text-fade {
     opacity: 0;
-    transition: opacity 5s ease;
+    transition: opacity 2s ease;
   }
   .text-fade.visible {
     opacity: 1;
-    animation-delay: 2s;
 
   }
   
@@ -660,12 +957,11 @@ pointer-events: all;
   .text-bounce {
     opacity: 0;
     transform: translateY(50px);
-    transition: opacity 1s ease;
+    transition: opacity 2s ease;
   }
   .text-bounce.visible {
     opacity: 1;
-    animation-delay: 2s;
-    animation: bounce 1.2s ease-in-out;
+    animation: bounce 2.2s ease-in-out;
   }
   @keyframes bounce {
     0% { transform: translateY(50px); }
@@ -683,8 +979,7 @@ pointer-events: all;
   }
   .text-typewriter.visible {
     opacity: 1;
-    animation-delay: 2s, 2s;
-    animation: typing 6s steps(20, end) forwards, blink 1s step-end infinite;
+    animation: typing 6s steps(20, end) forwards, blink 2s step-end infinite;
   }
   @keyframes typing {
     from { width: 0 }

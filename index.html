@@ -1,769 +1,687 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Stork's Nest</title>
-  <link rel="stylesheet" href="styles.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"> 
+<meta charset="UTF-8" />
+<meta theme-color="white">
+<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 
-  <style>
-    #creatorUsername::placeholder {
-    color: white; 
-    opacity: 1; 
-    padding-left: 0.1rem;
 
-  }
+<!--home.css-->
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<script src="https://cdn.jsdelivr.net/npm/simple-parallax-js@5.6.2/dist/simpleParallax.min.js"></script>
 
-  #creatorPassword::placeholder {
-    color: white;
-    padding-left: 0.1rem;
-    opacity: 1;
-  }
-   #newUsername::placeholder {
-    color: white;
-    padding-left: 0.3rem;
-    opacity: 1;
-  }
-    .editable-text {
-      cursor: pointer;
-      padding: 5px;
+<title>Stork's Nest Homepage</title>
 
-      
-  backdrop-filter: blur(2.4px) ;
-  -webkit-backdrop-filter: blur(2.4px) ;
-text-shadow: 0 0 3px black;
-  background: transparent;
-    }
 
-    
-    .editable-text:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-    
-    .editable-text:focus {
-      outline: 2px solid #ffffff;
-      background-color: rgba(0, 0, 0, 0.2);
-    }
 
-    .resize-handle {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 15px;
-  height: 15px;
-  background-color: #00aaff;
-  cursor: nwse-resize;
-  border-radius: 3px;
-  z-index: 11;
+<style>
+
+
+::-webkit-scrollbar {
+display: none;           
+visibility: hidden;
+        }
+
+        :root {
+            --bg: #0b0b0d;
+            /* deep charcoal */
+            --card: #121218;
+            /* card surface */
+            --muted: #9aa0a6;
+            /* secondary text */
+            --text: #f5f7fb;
+            /* primary text */
+            --accent: #6aa6ff;
+            /* blue */
+            --accent-2: #9b7bff;
+            /* violet */
+            --ring: rgba(106, 166, 255, .35);
+            --ok: #22c55e;
+            --warn: #f59e0b;
+            --danger: #ef4444;
+            --radius: 18px;
+            --shadow: 0 10px 30px rgba(0, 0, 0, .35);
+            --shadow-sm: 0 6px 18px rgba(0, 0, 0, .25);
+            --max: 1200px;
+
+
+            --fade-ms: 800ms;
+    --step-h: 74svh;
+        }
+
+        /* Base */
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-  </style>
+        html,
+        body {
+            height: 100%;
+            width: 100vw;
+            background-color: black;
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            padding: 0;
+            overflow-x: hidden;
+            margin: 0;
+            background-repeat: no-repeat;
+            font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+           /* background:
+                radial-gradient(1200px 800px at 8% -10%, #15151b, transparent),
+                radial-gradient(900px 500px at 110% 10%, #11111a, transparent),
+                linear-gradient(180deg, #0a0a0c, #0b0b0d 20%, #0b0b0d 80%, #09090b);*/
+                background: black;
+            color: var(--text);
+        }
+
+
+.scrolly {
+position: relative;
+width: 100vw;
+
+/* parent must be tall so the sticky can "live" until bottom */
+}
+
+/* The sticky background stays fixed until scrolly ends */
+.sticky-bg {
+position: sticky;
+top: 0;
+height: 100vh;
+min-height: 100svh;
+/* use svh for mobile address bar quirks */
+isolation: isolate; /* keeps blend/filters inside */
+pointer-events: none;
+overflow: clip;
+z-index: 0;
+}
+
+/* Two-layer crossfade (double buffer) */
+.bg-layer {
+position: absolute;
+inset: 0;
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+opacity: 0;
+transition: opacity var(--fade-ms) ease, transform 800ms ease, filter var(--fade-ms) ease;
+will-change: opacity, transform, filter;
+}
+.bg-layer.is-top { opacity: 1; transform: scale(1); }
+
+/* Soft vignette so text always reads */
+.vignette {
+position: absolute;
+inset: 0;
+pointer-events: none;
+background: radial-gradient(100% 100% at 50% 60%, transparent 40%, rgba(0,0,0,.28) 75%, rgba(0,0,0,.55) 100%);
+z-index: 2;
+}
+
+/* Foreground content column */
+.steps {
+position: relative;
+z-index: 3;
+}
+
+.step {
+min-height: var(--step-h);
+display: grid;
+place-items: center;
+padding: clamp(1.6rem, 4vw, 6rem);
+color: #f7f7f7;
+text-align: center;
+backdrop-filter: saturate(120%);
+}
+.step h2 {
+font-size: clamp(1.6rem, 5vw, 4rem);
+line-height: 1.06;
+margin: 0 0 .6rem;
+letter-spacing: .02em;
+}
+.step p {
+max-width: 72ch;
+font-size: clamp(1rem, 1.5vw, 1.25rem);
+opacity: .9;
+}
+
+/* Optional scroll snap on the whole page (uncomment if you want hard snaps)
+html { scroll-snap-type: y mandatory; }
+.step { scroll-snap-align: start; }
+*/
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+.bg-layer { transition: none; transform: none; }
+html { scroll-behavior: auto; }
+}
+
+header {
+    width: 100vw;
+    overflow-x: hidden;
+    height: auto;
+    min-height: 8svh;
+    /*
+
+background: linear-gradient(to right, rgba(77, 132, 164, 0.24), rgba(61, 112, 122, 0.24), rgba(142, 161, 174, 0.24), rgba(255,255,255, 0.24));
+*/
+text-shadow: 0 3px 7px #141c1fd8;
+
+    text-align: left;
+padding-left: 2vw;
+
+font-weight: bold;
+
+-webkit-backdrop-filter: blur(5px);
+backdrop-filter: blur(5px);
+
+font-size: 7.2svh;
+
+
+
+font-weight: 900;
+
+font-family: 'Impact', 'Anton', sans-serif; 
+}
+
+#dropDown {
+    position: absolute;
+  z-index: 1000;
+    top: 3.2svh;
+    right: 3.2vw;
+    margin: 0;
+    padding: 0;
+    flex-direction: row;
+    display: flex;
+    gap: 2vw;
+    font-size: 2rem;
+    opacity: 0.8;
+}
+
+
+#dropDownCont {
+text-decoration: underline;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    display: none;
+    min-width: 8%;
+    width: auto;
+    height: auto;
+    font-size: 1.16rem;
+    position: fixed;
+    right: 2vw;
+    top: 14svh;
+    z-index: 1000;
+padding-top: 3svh;
+padding-left: 1vw;
+padding-right: 1vw;
+padding-bottom: 3svh;
+font-weight: lighter;
+    box-shadow: 0 2px 6px rgba(11, 11, 11, 0.861);
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.824);
+    line-height: 2.4;
+    
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    border-radius: 6px;
+        
+}
+
+#dpImg:hover {
+scale: 1.1;
+filter: hue-rotate(180deg);
+transition: 0.16s all ease-in-out;    
+}
+#dpImg {
+z-index: 100;
+pointer-events: all;
+
+}
+
+
+
+
+</style>
+
 </head>
 <body>
 
+<header>Stork's Nest</header>
 
-
-
-<section id="s1" style="width: 100vw; ">
-<div id="poks">
-    <div class="bg" style="filter: brightness(0.8); background-image: url('s2.jpg');"></div>
-    <div class="bg" style="filter: brightness(0.8); background-image: url('nico.jpg');"></div>
-    <div class="bg" style="filter: brightness(0.8); background-image: url('eyp2.jpg');"></div>
-    <div class="bg" style="filter: brightness(0.8); background-image: url('har.jpg');"></div>
-
+<div id="dropDown" onclick="hideDropDown()">
+  <img src="home.png" id="dpImg">
+</div>
 </div>
 
 
-<div id="header">
-    <h1>Stork's Nest</h1>
+<div id="dropDownCont">
+  <a>Contact</a>
+  <a>About Stork's Nest</a>
+  <a>Stork's Nest Pro</a>
+  <a>Support</a>
 </div>
 
 
+<div class="scrolly" > <!--uus-->
 
+<!-- Sticky background stack -->
+<div class="sticky-bg" aria-hidden="true">
+  <div class="bg-layer bgA is-top"></div>
+  <div class="bg-layer bgB"></div>
+  <div class="vignette"></div>
 
-    <div id="modePrompt" style="position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center;  height: 100%;">
-        <div id="modePrompt2" style="box-shadow: 0 0 6px rgb(0, 0, 0); padding-bottom: 6svh; border: none; border-radius: 12px;">
-        <label><br>
-         <h3 id="h3" style="margin-bottom: 8svh;  font-weight: lighter; font-family: Georgia, 'Times New Roman', Times, serif;">Get Started</h3>
-         <input placeholder="Email"  type="username" id="creatorUsername" style="box-shadow: 0 2px 8px black;  font-size: 1.3rem; min-width: 220px; width: 80%; max-width: 320px; height: 48px; padding: 0; border: none; border-radius: 6px;">
-            <input placeholder="Password" type="password" id="creatorPassword" style="box-shadow: 0 2px 8px black;  font-size: 1.3rem; min-width: 220px; width: 80%; max-width: 320px; height: 48px; padding: 0; border: none; border-radius: 6px;"> 
-        </label>
-        <button id="enterCreator" style="font-weight: bolder; box-shadow: 0 2px 8px black; font-size: 1.4rem; width: 240px; height: 48px; border: none; border-radius: 6px; padding-top: 0.3rem; padding-bottom: 0.3rem; ">Log In</button>
+</div>
 
+<section class="steps">
+  <section class="step" data-bg="mount.png">
+    <div id="dataOne">
+      <h2 style="margin-top: -16svh;">Stork's Nest</h2>
+      <br>
+<div id="headline1" class="hiddenHeadline1">Bring Your Ideas to Life <strong style="font-size: 1.88rem;">with AI-Powered
+    Front-End Tool-Box</strong></div>
     </div>
-    <button href="#" id="showCreate" onclick="navigateTo('createSection')">Create an Account</button>
-
-      </div>
+  </section>
 
 
-      <div id="cookiePolicy">
-        <div id="cookieAdiv">
 
-<a id="a1">9100 Oulu, Finland</a>
-<a id="a2">Stork's Nest© - All rights reserved</a>
-<a id="a3">Cookie Preferences</a>
-<a id="a4">Terms and Conditions</a>
+<section class="step" data-bg="mount2.png" >
+  <div id="dataOne" >
+    <h2 style="margin-top: -16svh;" >Build Stunning Websites Without Writing a Single Line of Code
+   </h2> 
+   <p>
+    Stork’s Nest gives you the freedom to create beautiful, fully customizable galleries and websites in just a few
+    clicks.<br>Whether you’re showcasing your portfolio, sharing memories, or building a creative brand experience, everything is
+    at your fingertips—no technical skills required.
+   </p>
+  </div>
+</section>
 
-</div>
-      </div>
-
+<section class="step" data-bg="mount3.png">
+  <div id="dataOne">
+    <h2 style="margin-top: -16svh;">Simple, Flexible, Powerful</h2>
+    <br>
+    <p>Upload images or videos, pick your backgrounds, and apply smooth animations that bring your vision to life.<br><br>
+    Add personalized text, edit layouts in real time, and preview your design instantly. With Stork’s Nest, building your
+    perfect gallery is fast, fun, and effortless.</p>
+  </div>
 </section>
 
 
-<section id="createSection" style=" position: absolute; width: 100vw;  flex-direction: column; align-items: center; justify-content: center;  height: 100%;">
+<section class="step" data-bg="mount5.png">
+  <div id="dataOne">
+    <h2 style="margin-top: -16svh;">Join Now</h2>
+    <br>
+    <p>Perfect for small businesses, freelancers, and creatives who want stunning, functional sites without expensive
+    developers.<br><br>
+    Build, customize, and launch your digital space today with tools that put creativity first.
+</p>
+  </div>
+</section>
+
+
+
+</section>
+</div>
+
+
+
+
+
+
+
+
+    <!--
+  <div class="poks-content">
+
+      <header>Stork's Nest</header>
+
+   <div id="dropDown" onclick="hideDropDown()">
+      <img src="home.png" id="dpImg">
+   </div>
+</div>
+
+
+<div id="dropDownCont">
+  <a>Contact</a>
+  <a>About Stork's Nest</a>
+  <a>Stork's Nest Pro</a>
+  <a>Support</a>
+</div>
+
+
+
+
+     <section style="height: 100%;" class="parallax bg-1" >
+      
+
+
+<div id="headline1" class="hiddenHeadline1">Bring Your Ideas to Life <strong style="font-size: 1.88rem;">with AI-Powered Front-End Tool-Box</strong></div>
+
+
+
+
+<div id="s0Div1" class="hidden1">
+
+   Start your 3-day free trial with Stork's Builder Pro today.
+</div>
+
+
+<button id="revealPop" >?</button>
+
+     </section>
+     <section style="height: 116%;" class="parallax bg-2">
+
+      <div id="headline2" class="hiddenHeadline2">Build Stunning Websites Without Writing a Single Line of Code
+
+         <p style="
+-webkit-backdrop-filter: blur(2px);
+backdrop-filter: blur(2px); padding-left: 16vw; padding-right: 16vw; text-align: center;  font-size: 1.1rem; margin-top: 4svh;">   Stork’s Nest gives you the freedom to create beautiful, fully customizable galleries and websites in just a few clicks.<br><br>
+      Whether you’re showcasing your portfolio, sharing memories, or building a creative brand experience, everything is at your fingertips—no technical skills required.
+ 
+         </p>
+
+
+
+
+
+      </div>
+
+     </section>
    
-
-    <div id="poks">
-        <div class="bg" style="filter: brightness(0.8); background-image: url('s2.jpg');"></div>
-        <div class="bg" style="filter: brightness(0.8); background-image: url('nico.jpg');"></div>
-        <div class="bg" style="filter: brightness(0.8); background-image: url('eyp2.jpg');"></div>
-        <div class="bg" style="filter: brightness(0.8); background-image: url('har.jpg');"></div>
     
-    </div>
+   
+     <section style="height: 116%;" class="parallax bg-3">
 
-    <div id="modePrompt3" style=" box-shadow: 0 0 6px rgb(0, 0, 0); padding-bottom: 6svh; border: none; border-radius: 12px;">
+<div id="headline3" class="hiddenHeadline3">Simple, Flexible, Powerful
+   <p style="
+-webkit-backdrop-filter: blur(2px);
+backdrop-filter: blur(2px); padding-left: 16vw; padding-right: 16vw; text-align: center; font-size: 1.1rem; margin-top: 4svh;">       Upload images or videos, pick your backgrounds, and apply smooth animations that bring your vision to life.<br><br>
+      Add personalized text, edit layouts in real time, and preview your design instantly. With Stork’s Nest, building your perfect gallery is fast, fun, and effortless.
+   
+  
+   </p>
+</div>
 
-    <div class="formBox" >
-      <h2 id="h3" style="margin-bottom: 8svh;  font-weight: lighter; font-family: Georgia, 'Times New Roman', Times, serif;">Create Account</h2>
-      <label>
-        <input type="text" id="newUsername" placeholder="Username" style="box-shadow: 0 2px 8px black;  font-size: 1.3rem; min-width: 220px; width: 80%; max-width: 320px; height: 48px; padding: 0; border: none; border-radius: 6px;">
-      </label>
-      <button id="createAccount" style="font-weight: bolder; box-shadow: 0 2px 8px black; font-size: 1.4rem; width: 240px; height: 48px; border: none; border-radius: 6px; padding-top: 0.3rem; padding-bottom: 0.3rem; margin-top: 1rem;">Create Account</button>
-      <div id="accountMsg">Enter a username to create an account.</div>
-      <p style="margin-top:16px; font-size: 1.2rem; font-weight: bolder; color: white; ">Or<br><br> <a href="#" id="showLogin" style="margin-top:16px; font-size: 1.2rem; font-weight: bolder; color: white;">Back to login</a></p>
-    </div>
-    </div>
+     </section>
 
+     <section style="height: 100%;" class="parallax bg-4">
 
-    <div id="cookiePolicy">
-        <div id="cookieAdiv">
+<div id="headline4" class="hiddenHeadline4"><a class="ind2" onclick="navigateTo('indexSIGN.html')" style="background: rgba(0, 183, 255, 0.08); 
+   -webkit-backdrop-filter: blur(4px);
+   backdrop-filter: blur(4px);
+   border-radius: 8px;
+   border: none;
+   padding: 0.63rem 0.63rem;
+   box-shadow: 0 2px 6px rgba(9, 10, 15, 0.63);
+   text-decoration: underline;
+   pointer-events: all;
+   color: white;
+   ">Join Now</a>
+<p style="
+-webkit-backdrop-filter: blur(2px);
+backdrop-filter: blur(2px); padding-left: 16vw; padding-right: 16vw; text-align: center;  font-size: 1.1rem; margin-top: 4svh;">
+Perfect for small businesses, freelancers, and creatives who want stunning, functional sites without expensive developers.<br><br>
+Build, customize, and launch your digital space today with tools that put creativity first.
 
-<a id="a1">9100 Oulu, Finland</a>
+</p>
+</div>
+
+<footer>
+
+<a id="a1">9100, Finland</a>
 <a id="a2">Stork's Nest© - All rights reserved</a>
 <a id="a3">Cookie Preferences</a>
 <a id="a4">Terms and Conditions</a>
 
-</div>
-      </div>
-  </section>
-  
-
-
-<section id="s2">
-
-<div id="buttonDiv">
-    <button id="inf"  onclick="document.getElementById('infoBox').style.display='flex', document.getElementById('controls').style.display='none', document.getElementById('buttonDiv').style.display='none'">Guide</button>
-
-    <button id="toggleEditorBtn">Preview</button>
-
-
-    <button id="toggle" onclick="toggle()">Hide Editor</button>
-   
-</div>
-
-
-
-
-
-<div id="infoBox" >
-    <div id="scrollInfoBox">
-    <h2 style="text-align: center; font-weight: bolder;">Stork's Nest User Guide</h2><br>
-    <p><strong >🛠 Tools Panel</strong><br><br>
-        Upload Files → Add one or more images/videos to your site.<br>
-        Body Color → Select a theme color for the whole site.(This will change the top part of the websites coloring)<br>
-        Animation Style → Apply fade, slide, or bounce effects to your media.<br>
-        Add Text → Insert captions or custom notes.<br>
-        Confirm Button → Save and apply your chosen changes.<br>
-<br>Controls that appear to the bottom of each section individually after you confirm the page:<br>
-        Section Background → Choose a background color for the image you are currently on.<br>
-        Scale Image → Use the drag button to scale your image to your preferred size.<br>
-        Filters → Option to apply and choose a filter for the media.<br>
-
-       <br>Note that you can build and edit only single section at a time.</p>
-    <br><br><br>
-        <p><strong >👁 Display Controls</strong><br><br>
-        Guide → Opens this User Guide anytime.<br>
-        Preview → See your gallery without the editor.<br>
-        Hide Editor → Collapse the tools to focus fully on your content.<br>
-    Delete Button → at the bottom left corner will get rid of the whole section you are currently on.
-    </p>
-    <br><br><br>
-<p><strong >🎨 Customization Workflow</strong><br><br>
-Upload your images/videos.<br>
-Pick a background color to match your style.<br>
-Select an animation to bring media to life.<br>
-Add captions/text if needed.<br>
-Hit Confirm to place content into your gallery.
-</p>
-<br>
-<br>
-
-    <button id="closeInfo" onclick="document.getElementById('infoBox').style.display='none', document.getElementById('controls').style.display='flex', document.getElementById('buttonDiv').style.display='flex'">Close</button>
-</div>
-</div>
-
-
-
-   
-</div>
- <div id="controls" >
-        <h2>Tools</h2>
-        <input type="file" id="imageInput" accept="image/*, video/*" multiple>
-        <br>
-        <!--I want e-->    
-
-          <br>
-          <br>
-          <label>
-            Body Color:
-            <input type="color" id="pageBgColor" value="#ffffff">
-        </label>
-          <br>
-          <br>
-
-          <label for="animationSelect">Background Animation:</label>
-          <select id="animationSelect">
-            <option value="fade-in">Fade In</option>
-            <option value="slide-in">Slide In</option>
-            <option value="scale-up">Skew In</option>
-          </select>
-
-          <br>
-
-
-
-
-
-          
-          <label for="sectionText">Add text:</label>
-          <input type="text" id="sectionText" placeholder="Enter text here...">
-          <br>
-<label style="display: flex; flex-direction: column;">Text Animation:
-  <select id="textAnimationSelect">
-    <option value="text-fade">Fade</option>
-    <option value="text-bounce">Bounce</option>
-    <option value="text-typewriter">Typewriter</option>
-  </select>
-</label>
-<br>
-
-        <button style="padding-top: 0.4rem; padding-bottom: 0.4rem;" onclick="addImages()">Confirm</button>
-      
-    
-    
-    </div>
-      
-      <div id="photoGallery" style="height: 100vh; width: 100vw;">
-        </div>
-
-
+</footer>
 
     </section>
-    <div id="editorBar" style="display:none; "></div>
 
 
 
+</div>
 
-
-
-        <script>
-            const toggleBtn = document.getElementById("toggleEditorBtn");
-            toggleBtn.addEventListener("click", () => {
-              document.querySelectorAll(".image-controls").forEach(el => {
-                if (el.style.display === "none") {
-                  el.style.display = "flex";
-                } else {
-                  el.style.display = "none";
-                }
-              });
-            });
-          </script>
-
-
-
-
-<script>
-function toggle() {
-  const controls = document.getElementById("controls");
-  
-  const toggleButton = document.getElementById("toggle");
-
-  if (controls.style.display === "none" || controls.style.display === "") {
-    controls.style.display = "flex";
-    toggleButton.innerText = "Hide Editor";
-  } else {
-    controls.style.display = "none";
-    toggleButton.innerText = "Open Editor";
-  }
-}
-</script>
-
-
-<script>
-
-function addImages() {
-
-
-const fileInput = document.getElementById("imageInput");
-const textInput = document.getElementById("sectionText");
-const sectionText = textInput.value;
-
-console.log("Section Text:", sectionText);
-
-const files = fileInput.files;
-
-if (files.length === 0) {
-const gallery = document.getElementById("photoGallery");
-
-const section = document.createElement("section");
-section.className = "gallery-section";
-gallery.appendChild(section);
-
-const colorSection = document.createElement("div");
-colorSection.className = "image-section";
-colorSection.style.width = "100vw";
-colorSection.style.height = "100vh";
-colorSection.style.position = "relative";
-colorSection.style.backgroundColor = "#333"; 
-
-const controls = document.createElement("div");
-controls.className = "image-controls";
-controls.style.position = "absolute";
-controls.style.bottom = "1rem";
-controls.style.right = "10%";
-controls.style.display = "flex";
-controls.style.gap = "10px";
-controls.style.color = "#fff";
-controls.style.zIndex = "5";
-
-const colorPicker = document.createElement("input");
-colorPicker.type = "color";
-colorPicker.value = "#333";
-colorPicker.oninput = () => {
-colorSection.style.backgroundColor = colorPicker.value;
-};
-
-controls.append("BG:", colorPicker);
-
-const deleteBtn = document.createElement("button");
-deleteBtn.className = "delete-btn";
-deleteBtn.innerText = "Delete";
-deleteBtn.onclick = () => gallery.removeChild(section);
-
-colorSection.appendChild(deleteBtn);
-section.appendChild(colorSection);
-section.appendChild(controls);
-
-if (sectionText) {
-const textElement = document.createElement("p");
-textElement.textContent = sectionText;
-textElement.contentEditable = "true";
-textElement.className = "editable-text";
-textElement.style.position = "absolute";
-textElement.style.fontSize = "2rem";
-textElement.style.zIndex = "10";
-textElement.style.userSelect = "none";
-textElement.style.color = "white";
-textElement.style.fontFamily = "Arial, sans-serif";
-
-
-textElement.style.top = "20%";
-textElement.style.left = "20%";
-
-section.appendChild(textElement);
-makeDraggableAndResizable(textElement);
-
-}
-
-if (window.galleryObserver) {
-window.galleryObserver.observe(section);
-}
-
-} else {
-
-
-    const s2 = document.getElementById("s2");
-  s2.style.backgroundImage = "none";
-
-const gallery = document.getElementById("photoGallery");
-
-for (const file of files) {
-const reader = new FileReader();
-
-reader.onload = function (e) {
-const section = document.createElement("section");
-section.className = "gallery-section";
-gallery.appendChild(section);
-
-if (window.observeNewSection) window.observeNewSection(section);
-
-if (file.type.startsWith("image/")) {
-const imageSection = document.createElement("div");
-imageSection.className = "image-section";
-imageSection.style.width = "100vw";
-imageSection.style.height = "100vh";
-imageSection.style.backgroundImage = `url(${e.target.result})`;
-imageSection.style.backgroundSize = "cover";
-imageSection.style.backgroundPosition = "center";
-imageSection.style.backgroundRepeat = "no-repeat";
-imageSection.style.position = "relative";
-
-const controls = createControls(imageSection);
-
-const deleteBtn = document.createElement("button");
-deleteBtn.className = "delete-btn";
-deleteBtn.innerText = "Delete";
-deleteBtn.onclick = () => gallery.removeChild(section);
-
-imageSection.appendChild(deleteBtn);
-section.appendChild(imageSection);
-section.appendChild(controls);
-} else if (file.type.startsWith("video/")) {
-const video = document.createElement("video");
-video.src = e.target.result;
-video.controls = false;
-video.autoplay = true;
-video.loop = true;
-video.muted = true;
-video.style.width = "100vw";
-video.style.height = "100vh";
-video.style.objectFit = "cover";
-section.appendChild(video);
-}
-
-if (sectionText) {
-const textElement = document.createElement("p");
-textElement.textContent = sectionText;
-textElement.contentEditable = "true";
-textElement.className = "editable-text";
-textElement.style.position = "absolute";
-textElement.style.fontSize = "2rem";
-textElement.style.zIndex = "10";
-textElement.style.userSelect = "none";
-textElement.style.color = "white";
-textElement.style.fontFamily = "Arial, sans-serif";
-
-
-textElement.style.top = "20%";
-textElement.style.left = "20%";
-
-section.appendChild(textElement);
-makeDraggableAndResizable(textElement);
-
-}
-
-
-if (window.galleryObserver) {
-window.galleryObserver.observe(section);
-}
-};
-
-reader.readAsDataURL(file);
-}
-}
-fileInput.value = "";
-textInput.value = "";
-}
-
-function createControls(imageSection) {
-const controls = document.createElement("div");
-controls.className = "image-controls";
-controls.style.position = "absolute";
-controls.style.bottom = "1rem";
-controls.style.right = "10%";
-controls.style.display = "flex";
-controls.style.gap = "10px";
-controls.style.flexWrap = "wrap";
-controls.style.color = "#fff";
-controls.style.pointerEvents = "auto";
-controls.style.background = "transparent";
-controls.style.zIndex = "5";
-
-const colorPicker = document.createElement("input");
-colorPicker.type = "color";
-colorPicker.value = "#ffffff";
-colorPicker.oninput = () => {
-imageSection.style.backgroundColor = colorPicker.value;
-};
-
-const filterSelect = document.createElement("select");
-["none", "grayscale(100%)", "sepia(80%)", "contrast(60%)", "contrast(120%)", "hue-rotate(180deg)", "brightness(50%)", "brightness(150%)", "blur(8px)", "blur(3px)"].forEach(f => {
-const opt = document.createElement("option");
-opt.value = f;
-opt.textContent = f === "none" ? "None" : f;
-filterSelect.appendChild(opt);
-});
-filterSelect.onchange = () => {
-imageSection.style.filter = filterSelect.value;
-};
-
-const sizeSlider = document.createElement("input");
-sizeSlider.type = "range";
-sizeSlider.min = 50;
-sizeSlider.max = 150;
-sizeSlider.value = 100;
-sizeSlider.oninput = () => {
-imageSection.style.backgroundSize = `${sizeSlider.value}% auto`;
-};
-
-controls.append("BG:", colorPicker, " Filter:", filterSelect, " Size:", sizeSlider);
-
-return controls;
-}
-
-
-function makeDraggableAndResizable(element) {
-let isDragging = false;
-let isResizing = false;
-let offsetX = 0;
-let offsetY = 0;
-
-const resizeHandle = document.createElement("div");
-resizeHandle.className = "resize-handle";
-element.appendChild(resizeHandle);
-
-element.addEventListener("mousedown", (e) => {
-if (e.target !== resizeHandle) {
-isDragging = true;
-offsetX = e.clientX - element.offsetLeft;
-offsetY = e.clientY - element.offsetTop;
-e.preventDefault();
-}
-});
-
-element.addEventListener("dblclick", () => {
-element.contentEditable = "true";
-element.focus();
-});
-element.addEventListener("blur", () => {
-element.contentEditable = "false";
-});
-
-
-
-resizeHandle.addEventListener("mousedown", (e) => {
-isResizing = true;
-e.preventDefault();
-});
-
-document.addEventListener("mousemove", (e) => {
-if (isDragging) {
-element.style.left = `${e.clientX - offsetX}px`;
-element.style.top = `${e.clientY - offsetY}px`;
-}
-if (isResizing) {
-const newWidth = e.clientX - element.offsetLeft;
-const newHeight = e.clientY - element.offsetTop;
-element.style.width = `${newWidth}px`;
-element.style.height = `${newHeight}px`;
-element.style.fontSize = `${newWidth / 10}px`;
-}
-});
-
-document.addEventListener("mouseup", () => {
-isDragging = false;
-isResizing = false;
-});
-}
-
-
-
-
-
-
-document.addEventListener("DOMContentLoaded", () => {
-const pageBgPicker = document.getElementById("pageBgColor");
-if (pageBgPicker) { 
-pageBgPicker.oninput = () => {
-document.body.style.backgroundColor = pageBgPicker.value;
-document.documentElement.style.backgroundColor = pageBgPicker.value;
-};
-}
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-const observerOptions = {
-root: null,
-threshold: 0.24
-};
-const observer = new IntersectionObserver((entries, obs) => {
-entries.forEach(entry => {
-if (entry.isIntersecting) {
-entry.target.classList.add("visible");
-} else {
-entry.target.classList.remove("visible");
-}
-});
-}, observerOptions);
-document.querySelectorAll(".gallery-section").forEach(sec => observer.observe(sec));
-window.observeNewSection = (section) => observer.observe(section);
-window.galleryObserver = observer; 
-});
-
-
-
-</script>
-
-
-
-
-<script>
-let isCreatorMode = false; 
-
-document.getElementById("createSection").style.display = "none";
-
-    document.getElementById("controls").style.display = "none";
-    document.getElementById("s2").style.display = "none";
-    
-    document.getElementById("enterCreator").onclick = () => {
-      const email = document.getElementById("creatorUsername").value;
-      const pw = document.getElementById("creatorPassword").value;
-    
-      if (email === "Otto.mularii@gmail.com" && pw === "007") {
-        isCreatorMode = true;
-
-        
-        alert("Sign in succesful.\nWelcome!");
-
-    
-        
-        document.getElementById("createSection").style.display = "none";
-
-        document.getElementById("s2").style.display = "flex";
-        document.getElementById("controls").style.display = "flex";
-        document.getElementById("s1").style.display = "none";
-        document.getElementById("editorBar").style.display = "flex"; 
-        document.getElementById("modePrompt").style.display = "none"; 
-    
-      } else {
-        alert("Incorrect email or password. Try again.");
-        isCreatorMode = false;
-    
-        document.getElementById("s1").style.display = "flex";
-        document.getElementById("s2").style.display = "none";   
-        document.getElementById("editorBar").style.display = "none";
-        document.getElementById("controls").style.display = "none";
-        document.getElementById("modePrompt").style.display = "flex"; 
-
-      }
-    
-      document.querySelectorAll(".image-controls").forEach(ctrl => {
-        ctrl.style.display = isCreatorMode ? "flex" : "none";
-      });
-    };
-</script>
-
-
-
-
-<!--
-
-<script>
-    let isCreatorMode = false; 
-    document.getElementById("controls").style.display = "none";
-    document.getElementById("s2").style.display = "none";
-
-
-
-document.getElementById("enterCreator").onclick = () => {
-  const pw = document.getElementById("creatorPassword").value;
-  if (pw === "007") {
-    isCreatorMode = true;
-    alert("Welcome, creator!");
-    document.getElementById("s2").style.display = "flex";
-
-    document.getElementById("controls").style.display = "flex";
-
-    document.getElementById("s1").style.display = "none";
-    document.getElementById("editorBar").style.display = "flex"; 
-    document.getElementById("modePrompt").style.display = "none"; 
-  } else {
-    alert("Incorrect password. Spectator mode active.");
-    isCreatorMode = false;
-    document.getElementById("s1").style.display = "flex";
-
-    document.getElementById("editorBar").style.display = "none";
-    document.getElementById("controls").style.display = "none";
-     
-  }
-
-  document.querySelectorAll(".image-controls").forEach(ctrl => {
-    ctrl.style.display = isCreatorMode ? "flex" : "none";
-  });
-};
-</script>
 -->
 
 
 
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
-  const loginSection = document.getElementById("s1");
-  const createSection = document.getElementById("createSection");
+  (() => {
+    const steps = Array.from(document.querySelectorAll('.step'));
+    const bgA = document.querySelector('.bgA');
+    const bgB = document.querySelector('.bgB');
 
-  const showCreateLink = document.getElementById("showCreate");
-  const showLoginLink = document.getElementById("showLogin");
+    // Preload all backgrounds to avoid flashes
+    const sources = steps.map(s => s.dataset.bg).filter(Boolean);
+    sources.forEach(src => { const img = new Image(); img.src = src; });
 
-  const usernameInput = document.getElementById("creatorUsername");
-  const passwordInput = document.getElementById("creatorPassword");
-  const enterBtn = document.getElementById("enterCreator");
+    // Initialize first background
+    const firstSrc = steps[0]?.dataset.bg;
+    if (firstSrc) {
+      bgA.style.backgroundImage = `url("${firstSrc}")`;
+      bgB.style.backgroundImage = `url("${firstSrc}")`;
+      bgA.style.filter = 'saturate(1.08) brightness(0.48) contrast(1.04)';
+      bgB.style.filter = 'saturate(1.08) brightness(0.48) contrast(1.04)';
+    }
 
-  const newUsernameInput = document.getElementById("newUsername");
-  const createBtn = document.getElementById("createAccount");
-  const accountMsg = document.getElementById("accountMsg");
+    // Crossfade helper
+    let topLayer = bgA; // track which is currently visible
+    function crossfadeTo(src) {
+      if (!src) return;
+      const next = topLayer === bgA ? bgB : bgA;
+      // No-op if already showing this exact URL
+      const currentUrl = topLayer.style.backgroundImage;
+      const wantUrl = `url("${src}")`;
+      if (currentUrl === wantUrl) return;
 
-  showCreateLink.addEventListener("click", (e) => {
-    e.preventDefault();
-    loginSection.style.display = "none";
-    createSection.style.display = "flex";
-    document.body.style.overflow = "visible";
-  });
+      next.style.backgroundImage = wantUrl;
+      next.classList.add('is-top');
+      topLayer.classList.remove('is-top');
+      topLayer = next;
+    }
 
-  showLoginLink.addEventListener("click", (e) => {
-    e.preventDefault();
-    createSection.style.display = "none";
-    loginSection.style.display = "flex";
-    document.body.style.overflow = "hidden";
-  });
+    // IO to flip images as each ~80vh section becomes primary
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const io = ('IntersectionObserver' in window) ? new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const src = e.target.dataset.bg;
+          crossfadeTo(src);
+        }
+      });
+    }, {
+      root: null,
+      threshold: 0.40,           // "mostly in view" 55%
+      rootMargin: '-10% 0% -35%' // bias toward the center of the viewport
+    }) : null;
 
-  enterBtn.addEventListener("click", () => {
-    const pass = passwordInput.value.trim();
-    if (pass === "007") {
-      loginSection.style.display = "none";
-      document.body.style.overflow = "visible";
+    if (io) {
+      steps.forEach(s => io.observe(s));
     } else {
-      alert("Incorrect password. Try again.");
-      passwordInput.value = "";
-      passwordInput.focus();
+      // Fallback: scroll listener (older browsers)
+      const onScroll = () => {
+        const mid = window.innerHeight * 0.5;
+        let best = steps[0];
+        let bestDelta = Infinity;
+        for (const s of steps) {
+          const rect = s.getBoundingClientRect();
+          const center = rect.top + rect.height / 2;
+          const delta = Math.abs(center - mid);
+          if (delta < bestDelta) { bestDelta = delta; best = s; }
+        }
+        crossfadeTo(best?.dataset.bg);
+      };
+      document.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    }
+
+    // Optional: if you want hard snap-by-swipe, uncomment the CSS scroll-snap
+    // in <style>. This JS works fine with or without it.
+  })();
+</script>
+
+
+
+
+
+
+
+<!-- 
+
+
+
+
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        const content = document.querySelector(".poks-content");
+        requestAnimationFrame(() => {
+          content.classList.add("fade-in");
+        });
+      });
+      </script>
+
+
+<script>
+   window.addEventListener("DOMContentLoaded", () => {
+     const content = document.querySelector(".poks-content");
+     const homBtn = document.getElementById("hom");
+   
+     requestAnimationFrame(() => {
+       content.classList.add("fade-in");
+     });
+   
+     startBtn?.addEventListener("click", () => {
+       content.classList.remove("fade-in");
+       content.classList.add("fade-out");
+   
+       setTimeout(() => {
+         document.getElementById("poks").style.display = "none";
+       }, 600);
+     });
+   
+     homBtn?.addEventListener("click", () => {
+       const poks = document.getElementById("poks");
+   
+       poks.style.display = "flex";
+   
+       content.classList.remove("fade-out");
+       
+       void content.offsetWidth;
+   
+       content.classList.add("fade-in");
+     });
+   });
+   </script>
+ 
+
+
+
+ <script>
+   document.addEventListener("DOMContentLoaded", () => {
+     const sections = document.querySelectorAll(".parallax");
+   
+     const options = {
+       threshold: Array.from({ length: 101 }, (_, i) => i / 100) 
+     };
+   
+     const observer = new IntersectionObserver((entries) => {
+       entries.forEach(entry => {
+         if (entry.intersectionRatio > 0.24) {
+           entry.target.classList.add("visible-bg");
+         } else {
+           entry.target.classList.remove("visible-bg");
+         }
+       });
+     }, options);
+   
+     sections.forEach(section => observer.observe(section));
+   });
+   </script>
+
+
+
+
+
+<script>
+  function hideDropDown() {
+const mother = document.getElementById("dropDown");
+const child = document.getElementById("dropDownCont");
+
+onclick
+
+if (mother.style.display === "none" || mother.style.display === "")
+{
+mother.style.display = "flex";
+child.style.display = "flex";
+
+}
+else {
+  mother.style.display = "none";
+  child.style.display = "flex"
+}
+
+
+  }
+</script>
+
+
+
+<script>
+  function hideDropDown() {
+const mother = document.getElementById("dropDown");
+const child = document.getElementById("dropDownCont");
+
+onclick
+
+if (child.style.display === "none" || child.style.display === "")
+{
+child.style.display = "flex";
+mother.style.display = "flex";
+
+}
+else {
+  child.style.display = "none";
+  mother.style.display = "flex"
+}
+
+
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const goBackBtn = document.querySelector(".ind2");
+    if (goBackBtn) {
+      goBackBtn.addEventListener("click", function () {
+        window.location.href = "indexSIGN.html"; 
+      });
     }
   });
-
-  createBtn.addEventListener("click", () => {
-    const username = newUsernameInput.value.trim();
-    if (!username) {
-      accountMsg.style.display = "block";
-      return;
-    }
-    const randomEmail = username + /*Math.floor(Math.random()*1000) +*/ "@storksnest.com";
-    const randomPassword = Math.random().toString(36).slice(-8);
-
-    alert(`Account created successfully!\nUsername: ${randomEmail}\nPassword: ${randomPassword}`);
-    
-    alert(`Signed in as\n ${randomEmail}`);
+</script>
 
 
 
-    createSection.style.display = "none"; 
-    document.body.style.overflow = "visible";
-    s2.style.display = "flex";
-    controls.style.display = "flex";
 
+<script src="home.js"></script> 
 
-
-  });
-});
-    </script>
-<script src="js.js"></script>
+-->
 
 </body>
 </html>

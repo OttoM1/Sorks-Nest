@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener("DOMContentLoaded", () => {
     const observerOptions = {
         root: null,
-        threshold: 0.24
+        threshold: 0.32
     };
 
     const observer = new IntersectionObserver((entries, obs) => {
@@ -190,3 +190,137 @@ function addTextToSection(section, sectionText) {
         window.observeNewText(textElement);
     }
 }
+
+
+
+
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const target = document.getElementById("s0Div1");
+
+    const observerOptions = {
+        root: null, 
+        threshold: 0.72
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("visible1");
+                observer.unobserve(entry.target); }
+        });
+    }, observerOptions);
+
+    observer.observe(target);
+}); 
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const target = document.getElementById("s0Div2");
+
+    const observerOptions = {
+        root: null, 
+        threshold: 0.63
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("visible2");
+                observer.unobserve(entry.target); }
+        });
+    }, observerOptions);
+
+    observer.observe(target);
+}); 
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const target = document.getElementById("s0Div3");
+
+    const observerOptions = {
+        root: null, 
+        threshold: 0.48
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("visible3");
+                observer.unobserve(entry.target); }
+        });
+    }, observerOptions);
+
+    observer.observe(target);
+}); 
+
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const target = document.getElementById("s0Div12");
+
+    const observerOptions = {
+        root: null, 
+        threshold: 0.48
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("visible12");
+                observer.unobserve(entry.target); }
+        });
+    }, observerOptions);
+
+    observer.observe(target);
+}); 
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const target = document.getElementById("s0Div22");
+
+    const observerOptions = {
+        root: null, 
+        threshold: 0.48
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("visible22");
+                observer.unobserve(entry.target); }
+        });
+    }, observerOptions);
+
+    observer.observe(target);
+}); 
+
+
+
+
+
+
+
+
+
+
+
+  document.addEventListener('scroll', () => {
+    const section = document.getElementById('s0');
+    const rect = section.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+  
+    const scrollProgress = Math.min(Math.max((windowHeight - rect.top) / (windowHeight + rect.height), 0), 1);
+  
+    section.style.setProperty('--scroll-progress', scrollProgress);
+    section.style.setProperty('--parallax1', `${scrollProgress * 50}px`);
+    section.style.setProperty('--parallax2', `${scrollProgress * 80}px`);
+  });
